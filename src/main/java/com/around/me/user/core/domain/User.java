@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -63,14 +64,14 @@ public class User implements Serializable {
     private String blackListYn;
 
     @Setter
-    private LocalDateTime regDateTime;
+    private LocalDateTime regDatetime;
 
     @Setter
-    private LocalDateTime modDateTime;
+    private LocalDateTime modDatetime;
 
     @Setter
-    private long regUserNo;
+    private Long regUserNo;
 
     @Setter
-    private long modUserNo;
+    private Long modUserNo;
 }
