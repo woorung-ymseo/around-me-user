@@ -3,11 +3,8 @@ package com.around.me.user.core.domain;
 
 import com.around.me.user.core.enums.user.GenderEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,7 +14,6 @@ import java.time.LocalDateTime;
 @Table(name = "user")
 @Entity
 @Getter
-@ToString
 public class User implements Serializable {
 
     @Id @GeneratedValue
@@ -63,10 +59,10 @@ public class User implements Serializable {
     private String blackListYn;
 
     @Setter
-    private LocalDateTime regDateTime;
+    private LocalDateTime regDatetime;
 
     @Setter
-    private LocalDateTime modDateTime;
+    private LocalDateTime modDatetime;
 
     @Setter
     private long regUserNo;

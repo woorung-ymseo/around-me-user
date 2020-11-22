@@ -23,11 +23,21 @@ public class UserController {
 
     @ApiOperation(value = "회원정보 조회 test")
     @GetMapping(value = "/user")
-    Response<User> payApproval(/*@RequestHeader(name = "Authorization", required = true) String authorization,*/
+    Response<User> userInfoTest(/*@RequestHeader(name = "Authorization", required = true) String authorization,*/
                               /*@ApiIgnore Errors errors*/) {
 
         User user = userService.findUserId();
 
         return Response.ok(user);
+    }
+
+    @ApiOperation(value = "약관 테스트 조회")
+    @GetMapping(value = "/user/term")
+    Response<String> userTermInfoTest(/*@RequestHeader(name = "Authorization", required = true) String authorization,*/
+                              /*@ApiIgnore Errors errors*/) {
+
+        Response<String> str = userService.term();
+
+        return str;
     }
 }

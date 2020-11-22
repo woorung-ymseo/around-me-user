@@ -26,7 +26,127 @@ import java.util.Map;
 @Component
 public class ResourceClient {
 
-    private final RestTemplate restTemplate;
+    private final RestTemplate restTemplate ;
+
+    /**
+     * RestTemplate get for Data
+     *
+     * @param <T>
+     * @param uri
+     * @param parameter
+     * @param httpHeaders
+     * @param clazz
+     * @return
+     */
+    public <T> Object getForData(String uri, Object parameter, HttpHeaders httpHeaders, Class<T> clazz) {
+        Object data = this.excueteForData(uri, HttpMethod.GET, parameter, httpHeaders, clazz);
+
+        return data != null ? (T) data : new Object();
+    }
+
+    /**
+     * RestTemplate get
+     *
+     * @param uri
+     * @param parameter
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public <T> Object getForData(String uri, Object parameter, Class<T> clazz) {
+        Object data = this.getForData(uri, parameter, null, clazz);
+
+        return data != null ? (T) data : new Object();
+    }
+
+    /**
+     * RestTemplate get
+     *
+     * @param uri
+     * @param httpHeaders
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public <T> Object getForData(String uri, HttpHeaders httpHeaders, Class<T> clazz) {
+        Object data = this.excueteForData(uri, HttpMethod.GET, null, httpHeaders, clazz);
+
+        return data != null ? (T) data : new Object();
+    }
+
+    /**
+     * RestTemplate get
+     *
+     * @param uri
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public <T> Object getForData(String uri, Class<T> clazz) {
+        return this.excueteForData(uri, HttpMethod.GET, null, null, clazz);
+    }
+
+    /**
+     * RestTemplate post
+     *
+     * @param uri
+     * @param parameter
+     * @param httpHeaders
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public <T> Object postForData(String uri, Object parameter, HttpHeaders httpHeaders, Class<T> clazz) {
+        Object data = this.excueteForData(uri, HttpMethod.POST, parameter, httpHeaders, clazz);
+
+        return data != null ? (T) data : new Object();
+    }
+
+    /**
+     * RestTemplate post
+     *
+     * @param uri
+     * @param httpHeaders
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public <T> Object postForData(String uri, HttpHeaders httpHeaders, Class<T> clazz) {
+        Object data = this.excueteForData(uri, HttpMethod.POST, null, httpHeaders, clazz);
+
+        return data != null ? (T) data : new Object();
+    }
+
+    /**
+     * RestTemplate post
+     *
+     * @param uri
+     * @param parameter
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public <T> Object postForData(String uri, Object parameter, Class<T> clazz) {
+        Object data = this.excueteForData(uri, HttpMethod.POST, parameter, null, clazz);
+
+        return data != null ? (T) data : new Object();
+    }
+
+    /**
+     * RestTemplate post
+     *
+     * @param uri
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public <T> Object postForData(String uri, Class<T> clazz) {
+        Object data = this.excueteForData(uri, HttpMethod.POST, null, null, clazz);
+
+        return data != null ? (T) data : new Object();
+    }
+
+   // =========
 
     /**
      * RestTemplate get
@@ -185,6 +305,55 @@ public class ResourceClient {
                                 return new ResourceParameterizedTypeImpl((ParameterizedType) super.getType(), new Type[] {clazz});
                             }
                         }, paramMap);
+
+        return responseEntity.getBody();
+    }
+
+    /**
+     * RestTemplate Excuete
+     *
+     * @param uri
+     * @param method
+     * @param parameter
+     * @param httpHeaders
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    @SneakyThrows
+    private <T> Object excueteForData(String uri, HttpMethod method, Object parameter, HttpHeaders httpHeaders, Class<T> clazz) {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        MultiValueMap<String, Object> paramMap = new LinkedMultiValueMap<>();
+
+        if (parameter != null) {
+            Map<String, Object> map = objectMapper.convertValue(parameter, Map.class);
+
+            paramMap.setAll(map);
+
+            // GET 방식은 경우 URI에 Query String  추가
+            if (StringUtils.equals(method.toString(), HttpMethod.GET.toString())) {
+                uri = uri + this.urlEncodeUTF8(map);
+            }
+        }
+
+
+//        HttpEntity request = this.getHttpEntity(paramMap, httpHeaders);
+/*
+        if (StringUtils.equals(method.toString(), HttpMethod.GET.toString())) {
+            response = restTemplate.getForEntity(uri, request, Response.class);
+        } else if (StringUtils.equals(method.toString(), HttpMethod.POST.toString())) {
+            response = restTemplate.postForEntity(uri, request, Response.class);
+        }*/
+
+
+
+        HttpEntity httpEntity = this.getHttpEntity(paramMap, httpHeaders);
+
+
+        ResponseEntity<T> responseEntity =
+                restTemplate.exchange(uri, method, httpEntity
+                        , new ParameterizedTypeReference<T>() {}, paramMap);
 
         return responseEntity.getBody();
     }
