@@ -19,12 +19,12 @@ public class SwaggerConfig {
     Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .useDefaultResponseMessages(false)
-                .groupName("REAPPAY PG USER API v1.0")
+                .groupName("AROUND ME USER API v1.0")
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.around.me.user.api.v1"))
                 .paths(PathSelectors.ant("/user/api/v1/**"))
                 .build()
-                .apiInfo(apiInfo("REAPPAY USER PG API", "v1.0"))
+                .apiInfo(apiInfo("AROUND ME API", "v1.0"))
                 ;
     }
 
