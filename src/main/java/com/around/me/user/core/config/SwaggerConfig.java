@@ -2,7 +2,6 @@ package com.around.me.user.core.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -22,8 +21,8 @@ public class SwaggerConfig {
                 .useDefaultResponseMessages(false)
                 .groupName("REAPPAY PG USER API v1.0")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.around.me.user"))
-                .paths(PathSelectors.ant("/api/v1/**"))
+                .apis(RequestHandlerSelectors.basePackage("com.around.me.user.api.v1"))
+                .paths(PathSelectors.ant("/user/api/v1/**"))
                 .build()
                 .apiInfo(apiInfo("REAPPAY USER PG API", "v1.0"))
                 ;
