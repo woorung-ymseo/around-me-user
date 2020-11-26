@@ -47,6 +47,15 @@ hystrix:
         requestVolumeThreshold: 20 # default 20 - \uC2DC\uB3C4 \uD69F\uC218
         errorThresholdPercentage: 10 # default 50 - \uC5D0\uB7EC %
         sleepWindowInMilliseconds: 5000 # default 5000 - \uC11C\uD0B7 \uC624\uD508 \uC2DC\uAC04
+    around-me-store:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000 # default 1000
+      circuitBreaker:
+        requestVolumeThreshold: 20 # default 20 - \uC2DC\uB3C4 \uD69F\uC218
+        errorThresholdPercentage: 10 # default 50 - \uC5D0\uB7EC %
+        sleepWindowInMilliseconds: 5000 # default 5000 - \uC11C\uD0B7 \uC624\uD508 \uC2DC\uAC04
 
 around-me-user:
   ribbon:
@@ -54,6 +63,11 @@ around-me-user:
     MaxAutoRetriesNextServer: 1
 
 around-me-common:
+  ribbon:
+    MaxAutoRetries: 0
+    MaxAutoRetriesNextServer: 1
+
+around-me-store:
   ribbon:
     MaxAutoRetries: 0
     MaxAutoRetriesNextServer: 1
