@@ -91,3 +91,9 @@ eureka:
   client:
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka  # default address
+
+service:
+  domain:
+    common: http://localhost:8082
+    user: http://localhost:8081
+    store: http://localhost:8083
