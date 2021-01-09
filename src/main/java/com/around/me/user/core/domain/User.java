@@ -3,10 +3,10 @@ package com.around.me.user.core.domain;
 
 import com.around.me.user.api.v1.user.dto.PatchUserParamDTO;
 import com.around.me.user.api.v1.user.dto.PostUserSignUpParamDTO;
+import com.around.me.user.core.enums.common.YnEnum;
 import com.around.me.user.core.enums.user.GenderEnum;
 import com.around.me.user.core.enums.user.UserSortEnum;
 import com.around.me.user.core.enums.user.UserStatusEnum;
-import com.around.me.user.core.enums.user.YnEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
@@ -14,9 +14,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -33,7 +30,7 @@ import java.util.stream.Collectors;
 @Builder
 @Getter
 //@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User implements UserDetails {
+public class User{
 
 //    @ApiModelProperty(value = "회원번호", hidden = true)
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -112,86 +109,6 @@ public class User implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
-
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    // getUsername을 통해 spring security에서 사용하는 username을 가져감
-    public String getUsername() {
-        return userEmail;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
-
-//    @Builder
-//    public User(String userPassword, String regDatetime, List<String> roles) {
-//        this.userPassword = userPassword;
-//        this.regDatetime = regDatetime;
-//        this.roles = roles;
-//    }
-
-/*    @Builder(builderClassName = "SignUpBuilder", builderMethodName = "SignUpBuilder")
-    public User(String userPassword, String userName, String userEmail, String userMobile,
-                GenderEnum gender, String birth, UserSortEnum userSort, String lastLoginDate,
-                String lastPasswordModDate, int loginTryCount, UserStatusEnum userStatus, YnEnum blackListYn,
-                String regDatetime, String modDatetime, long regUserNo, long modUserNo) {
-
-        Assert.notNull(userPassword, "userPassword must not be null");
-        Assert.notNull(userName, "userName must not be null");
-        Assert.notNull(userEmail, "userEmail must not be null");
-        Assert.notNull(userMobile, "userMobile must not be null");
-        Assert.notNull(gender, "gender must not be null");
-        Assert.notNull(birth, "birth must not be null");
-        Assert.notNull(userSort, "userSort must not be null");
-        Assert.notNull(loginTryCount, "loginTryCount must not be null");
-        Assert.notNull(userStatus, "userStatus must not be null");
-        Assert.notNull(blackListYn, "blackListYn must not be null");
-        Assert.notNull(regDatetime, "regDatetime must not be null");
-        Assert.notNull(regUserNo, "regUserNo must not be null");
-
-        this.userPassword = userPassword;
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.userMobile = userMobile;
-        this.gender = gender;
-        this.birth = birth;
-        this.userSort = userSort;
-        this.lastLoginDate = lastLoginDate;
-        this.lastPasswordModDate = lastPasswordModDate;
-        this.loginTryCount = loginTryCount;
-        this.userStatus = userStatus;
-        this.blackListYn = blackListYn;
-        this.regDatetime = regDatetime;
-        this.modDatetime = modDatetime;
-        this.regUserNo = regUserNo;
-        this.modUserNo = modUserNo;
-    }*/
 
     public void signUp(PostUserSignUpParamDTO postUserSignUpParamDto) {
         this.userName = postUserSignUpParamDto.getUserName();

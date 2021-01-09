@@ -1,45 +1,51 @@
 package com.around.me.user.core.context;
 
-import com.around.me.user.core.domain.User;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
-@RequiredArgsConstructor
+import org.springframework.stereotype.Component;
+
 @Component
 public class ResponseContextHolder {
 
-    private final RestTemplate restTemplate;
-
-    private static User user;
+    private static UserContextHolder userContextHolder;
 
     private static String xAuthToken;
+
+    private static String xRefreshToken;
 
     /**
      * Get User
      *
      * @return
      */
-    public static User user() {
-        return ResponseContextHolder.user;
+    public static UserContextHolder user() {
+        return ResponseContextHolder.userContextHolder;
     }
 
     /**
      * Set User
      *
-     * @param user
+     * @param userContextHolder
      */
-    public static void user(User user) {
-        ResponseContextHolder.user = user;
+    public static void user(UserContextHolder userContextHolder) {
+        ResponseContextHolder.userContextHolder = userContextHolder;
     }
 
     /**
      * Set AccessToken
      *
-     * @param accessToken
+     * @param xAuthToken
      */
-    public static void xAuthToken(String accessToken) {
-        ResponseContextHolder.xAuthToken = accessToken;
+    public static void xAuthToken(String xAuthToken) {
+        ResponseContextHolder.xAuthToken = xAuthToken;
+    }
+
+    /**
+     * Set AccessToken
+     *
+     * @param xRefreshToken
+     */
+    public static void xRefreshToken(String xRefreshToken) {
+        ResponseContextHolder.xRefreshToken = xRefreshToken;
     }
 
     /**
@@ -49,5 +55,14 @@ public class ResponseContextHolder {
      */
     public static String xAuthToken() {
         return ResponseContextHolder.xAuthToken;
+    }
+
+    /**
+     * Get RefreshToken
+     *
+     * @return
+     */
+    public static String xRefreshToken() {
+        return ResponseContextHolder.xRefreshToken;
     }
 }

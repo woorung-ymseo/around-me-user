@@ -59,6 +59,8 @@ dependencies {
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
     annotationProcessor 'org.projectlombok:lombok'
 
     // security
@@ -69,6 +71,7 @@ dependencies {
 
     // spring-data-redis
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.3.3.RELEASE'
+
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

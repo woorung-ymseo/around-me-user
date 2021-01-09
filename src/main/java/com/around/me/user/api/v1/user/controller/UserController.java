@@ -10,9 +10,9 @@ import com.around.me.user.api.v1.user.util.RedisUtil;
 import com.around.me.user.core.annoitation.version.RestMappingV1;
 import com.around.me.user.core.domain.User;
 import com.around.me.user.core.dto.Response;
+import com.around.me.user.core.enums.common.YnEnum;
 import com.around.me.user.core.enums.user.UserSortEnum;
 import com.around.me.user.core.enums.user.UserStatusEnum;
-import com.around.me.user.core.enums.user.YnEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -34,7 +34,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RestMappingV1
-public class UserController {
+public class  UserController {
 
     // 회원가입 비밀번호 암호화 방식
     private final PasswordEncoder passwordEncoder;
