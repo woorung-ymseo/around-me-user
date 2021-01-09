@@ -38,7 +38,7 @@ dependencies {
     implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.1'
     
     // around-me-support
-	implementation 'com.around.me.support:around-me-support:0.0.1'
+	//implementation 'com.around.me.support:around-me-support:0.0.1'
 	
     // [CLOUD] hystrix
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-hystrix', version: '2.2.2.RELEASE'
@@ -60,6 +60,15 @@ dependencies {
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 
     annotationProcessor 'org.projectlombok:lombok'
+
+    // security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // mail
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    // spring-data-redis
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.3.3.RELEASE'
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
